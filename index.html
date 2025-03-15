@@ -1,4 +1,4 @@
-,<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -27,20 +27,23 @@
 </head>
 <body>
     <h2>Щоб переглянути сайт, відкрийте його в браузері</h2>
-    <a id="openBrowser" class="btn" href="#">🔗 Натисніть тут👈</a>
+    <a id="openBrowser" class="btn" href="#">🔗 Відкрити в браузері</a>
 
     <script>
-        var url = "https://uk.m.wikipedia.org/wiki/%D0%93%D0%BE%D0%BB%D0%BE%D0%B2%D0%BD%D0%B0_%D1%81%D1%82%D0%BE%D1%80%D1%96%D0%BD%D0%BA%D0%B0";
+        var url = "https://google.com";
         var ua = navigator.userAgent || navigator.vendor || window.opera;
-        
-        if (/TikTok/i.test(ua)) {
-            document.getElementById("openBrowser").href = "googlechrome://navigate?url=" + url;
 
-            // Автоматичний редирект через 3 секунди
-            setTimeout(function() {
-                window.location.href = url;
-            }, 6000);
+        // Перевіряємо, чи відкрито в TikTok
+        if (/TikTok/i.test(ua)) {
+            document.getElementById("openBrowser").addEventListener("click", function(event) {
+                event.preventDefault();
+                window.location.href = "googlechrome://navigate?url=" + url;
+                setTimeout(function() {
+                    window.location.href = url;
+                }, 500); // Якщо Chrome не спрацює, відкриє просто сайт
+            });
         } else {
+            // Якщо це не TikTok, одразу відкриваємо сайт
             window.location.href = url;
         }
     </script>
