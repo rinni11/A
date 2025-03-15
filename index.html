@@ -6,60 +6,60 @@
     <title>Відкрити в браузері</title>
     <style>
         body {
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
             font-family: Arial, sans-serif;
-            margin-top: 20%;
+            background: #f0f0f0;
         }
-        .btn {
-            display: inline-block;
-            padding: 15px 25px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
+        .browser-btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background: #fff;
+            border: 2px solid red;
+            border-radius: 8px;
+            color: red;
             cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            margin: 20px;
+            text-align: center;
         }
-        .hidden {
-            display: none;
+        .browser-btn:hover {
+            background: red;
+            color: white;
+        }
+        p {
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 20px;
+            max-width: 80%;
         }
     </style>
 </head>
 <body>
-    <h2>Щоб переглянути сайт, відкрийте його в браузері</h2>
-    <button id="openBrowser" class="btn">🔗 Відкрити в браузері</button>
-    <p id="copyMessage" class="hidden">Якщо сторінка не відкрилась, <br>скопіюйте посилання та відкрийте в браузері: <br><strong id="copyLink"></strong></p>
+    <!-- Клікабельна кнопка замість зображення -->
+    <div class="browser-btn" id="openBrowserBtn">
+        ↗️↗️↗️ ВІДКРИТИ В БРАУЗЕРІ ↗️↗️↗️
+    </div>
+
+    <p>Натисніть кнопку вище, щоб відкрити сайт у зовнішньому браузері</p>
 
     <script>
-        var url = "https://google.com";
-        var ua = navigator.userAgent || navigator.vendor || window.opera;
+        // Функція для відкриття сайту
+        function openInBrowser() {
+            const url = "https:/google.com"; 
+            window.open(url, '_blank');
+        }
 
-        document.getElementById("copyLink").textContent = url;
+        // Додаємо обробник кліку на кнопку
+        document.getElementById('openBrowserBtn').addEventListener('click', openInBrowser);
 
-        document.getElementById("openBrowser").addEventListener("click", function(event) {
-            event.preventDefault();
-
-            if (/TikTok/i.test(ua)) {
-                // Пробуємо відкрити в Chrome
-                window.location.href = "googlechrome://navigate?url=" + url;
-
-                // Якщо не спрацює, відкриваємо через setTimeout (для iOS)
-                setTimeout(function() {
-                    window.open(url, "_blank");
-                }, 500);
-
-                // Через 1 секунду показуємо повідомлення про копіювання, якщо не відкриється
-                setTimeout(function() {
-                    document.getElementById("copyMessage").classList.remove("hidden");
-                }, 1000);
-            } else {
-                // Якщо це не TikTok – відкриваємо сайт напряму
-                window.location.href = url;
-            }
-        });
+        // Автоматичне перенаправлення можна видалити або закоментувати
+        // setTimeout(() => { window.location.href = url; }, 5000);
     </script>
 </body>
 </html>
