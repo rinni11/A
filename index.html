@@ -3,41 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Перехід на сайт</title>
+    <title>Кнопка "Відкрити в браузері"</title>
     <style>
-        /* Стилі для кнопки */
-        .open-button {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 15px 30px;
-            background-color: #008CBA;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            z-index: 9999;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
         }
-        
-        /* Стилі для кнопки при наведенні */
-        .open-button:hover {
-            background-color: #005f6b;
+
+        .open-browser-button {
+            background-color: #1d9bf0; /* Блакитний колір, як у TikTok */
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .open-browser-button:hover {
+            background-color: #006fa6; /* Темніший відтінок при наведенні */
+        }
+
+        .open-browser-button:focus {
+            outline: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- Кнопка для відкриття сайту в браузері -->
-    <button class="open-button" onclick="openInBrowser()">Відкрити сайт</button>
+    <!-- Кнопка для відкриття сайту -->
+    <button class="open-browser-button" onclick="openInBrowser()">Відкрити в браузері</button>
 
     <script>
         function openInBrowser() {
             // Вказати URL свого сайту
-            const url = 'https://google.com';
-            // Відкриває сайт у зовнішньому браузері
-            window.open(url, '_blank');
+            const url = 'https://google.com'; // Заміни на адресу свого сайту
+            window.open(url, '_blank'); // Відкриває сайт у новій вкладці браузера
         }
     </script>
 
