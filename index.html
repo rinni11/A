@@ -33,18 +33,15 @@
         var url = "https://google.com";
         var ua = navigator.userAgent || navigator.vendor || window.opera;
 
-        // Перевіряємо, чи відкрито в TikTok
+        // Якщо це TikTok, вмикаємо кнопку
         if (/TikTok/i.test(ua)) {
             document.getElementById("openBrowser").addEventListener("click", function(event) {
                 event.preventDefault();
                 window.location.href = "googlechrome://navigate?url=" + url;
-                setTimeout(function() {
-                    window.location.href = url;
-                }, 500); // Якщо Chrome не спрацює, відкриє просто сайт
             });
         } else {
-            // Якщо це не TikTok, одразу відкриваємо сайт
-            window.location.href = url;
+            // В інших браузерах просто показуємо кнопку, без автоматичного редиректу
+            document.getElementById("openBrowser").href = url;
         }
     </script>
 </body>
