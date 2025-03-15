@@ -3,75 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Відкрити в зовнішньому браузері</title>
+    <title>Перехід на сайт</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: #f5f5f5;
-            font-family: Arial, sans-serif;
-        }
-
-        .browser-button {
+        /* Стилі для кнопки */
+        .open-button {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             padding: 15px 30px;
-            font-size: 18px;
-            background: #ffffff;
-            border: 2px solid #ff0000;
-            border-radius: 8px;
-            color: #ff0000;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 9999;
         }
-
-        .browser-button:hover {
-            background: #ff0000;
-            color: #ffffff;
+        
+        /* Стилі для кнопки при наведенні */
+        .open-button:hover {
+            background-color: #005f6b;
         }
     </style>
 </head>
 <body>
-    <button class="browser-button" id="externalBrowserBtn">
-        Відкрити в браузері
-    </button>
+
+    <!-- Кнопка для відкриття сайту в браузері -->
+    <button class="open-button" onclick="openInBrowser()">Відкрити сайт</button>
 
     <script>
-        // Функція для примусового відкриття у зовнішньому браузері
-        function openInExternalBrowser() {
-            const url = "https://google.com"; // Замініть на ваш URL
-            
-            // Спроба відкрити через window.open()
-            const newWindow = window.open(url, '_blank');
-            
-            // Якщо вікно заблоковано, перенаправляємо користувача
-            if (!newWindow || newWindow.closed) {
-                // Створюємо прихований <a> тег для імітації кліку
-                const link = document.createElement('a');
-                link.href = url;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                // Додаткова перевірка через 1 секунду
-                setTimeout(() => {
-                    if (window.location.href === url) return;
-                    alert('Дозвольте спливаючі вікна або натисніть тут →');
-                    window.location.href = url;
-                }, 1000);
-            }
+        function openInBrowser() {
+            // Вказати URL свого сайту
+            const url = 'https://google.com';
+            // Відкриває сайт у зовнішньому браузері
+            window.open(url, '_blank');
         }
-
-        // Додаємо обробник події
-        document.getElementById('externalBrowserBtn').addEventListener('click', openInExternalBrowser);
     </script>
+
 </body>
 </html>
