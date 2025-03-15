@@ -1,22 +1,37 @@
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request));
-});
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <script>
+        // Функція для визначення, чи це TikTok
+        function isTikTok() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            return /TikTok/i.test(userAgent);
+        }
 
-async function handleRequest(request) {
-  const targetUrl = "https://google.com"; // Ваше кінцеве посилання
-  const userAgent = request.headers.get('User-Agent') || '';
+        // Перенаправлення
+        function redirect() {
+            const targetUrl = "https://google.com"; // Замініть на своє
+            if (isTikTok()) {
+                // Відкриваємо у новому вікні (імітація кліку)
+                const link = document.createElement('a');
+                link.href = targetUrl;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                document.body.appendChild(link);
+                link.click();
+            } else {
+                // Звичайне перенаправлення
+                window.location.href = targetUrl;
+            }
+        }
 
-  // Список "небажаних" додатків, де треба відкривати браузер
-  const blockedApps = ['TikTok', 'Instagram'];
-
-  // Перевіряємо, чи запит прийшов з TikTok/Instagram
-  const isFromBlockedApp = blockedApps.some(app => userAgent.includes(app));
-
-  if (isFromBlockedApp) {
-    // Перенаправляємо на цільовий URL з примусовим відкриттям у браузері
-    return Response.redirect(targetUrl, 302);
-  } else {
-    // Якщо не з TikTok — просто відкриваємо посилання
-    return fetch(targetUrl);
-  }
-}
+        // Запускаємо при завантаженні сторінки
+        window.onload = redirect;
+    </script>
+</head>
+<body>
+    <p>Якщо перенаправлення не спрацювало, <a href="https://ваше-посилання.com" target="_blank">натисніть тут</a>.</p>
+</body>
+</html>
