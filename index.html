@@ -41,11 +41,16 @@
 
         document.getElementById("openBrowser").addEventListener("click", function(event) {
             event.preventDefault();
-            
+
             if (/TikTok/i.test(ua)) {
-                // Спроба відкрити у Chrome
+                // Пробуємо відкрити в Chrome
                 window.location.href = "googlechrome://navigate?url=" + url;
-                
+
+                // Якщо не спрацює, відкриваємо через setTimeout (для iOS)
+                setTimeout(function() {
+                    window.open(url, "_blank");
+                }, 500);
+
                 // Через 1 секунду показуємо повідомлення про копіювання, якщо не відкриється
                 setTimeout(function() {
                     document.getElementById("copyMessage").classList.remove("hidden");
