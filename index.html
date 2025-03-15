@@ -23,26 +23,38 @@
             text-decoration: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <h2>Щоб переглянути сайт, відкрийте його в браузері</h2>
-    <a id="openBrowser" class="btn" href="#">🔗 Відкрити в браузері</a>
+    <button id="openBrowser" class="btn">🔗 Відкрити в браузері</button>
+    <p id="copyMessage" class="hidden">Якщо сторінка не відкрилась, <br>скопіюйте посилання та відкрийте в браузері: <br><strong id="copyLink"></strong></p>
 
     <script>
         var url = "https://google.com";
         var ua = navigator.userAgent || navigator.vendor || window.opera;
 
-        // Якщо це TikTok, вмикаємо кнопку
-        if (/TikTok/i.test(ua)) {
-            document.getElementById("openBrowser").addEventListener("click", function(event) {
-                event.preventDefault();
+        document.getElementById("copyLink").textContent = url;
+
+        document.getElementById("openBrowser").addEventListener("click", function(event) {
+            event.preventDefault();
+            
+            if (/TikTok/i.test(ua)) {
+                // Спроба відкрити у Chrome
                 window.location.href = "googlechrome://navigate?url=" + url;
-            });
-        } else {
-            // В інших браузерах просто показуємо кнопку, без автоматичного редиректу
-            document.getElementById("openBrowser").href = url;
-        }
+                
+                // Через 1 секунду показуємо повідомлення про копіювання, якщо не відкриється
+                setTimeout(function() {
+                    document.getElementById("copyMessage").classList.remove("hidden");
+                }, 1000);
+            } else {
+                // Якщо це не TikTok – відкриваємо сайт напряму
+                window.location.href = url;
+            }
+        });
     </script>
 </body>
 </html>
