@@ -1,1 +1,22 @@
-<meta http-equiv="refresh" content="0; url=https://google.com" />
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request));
+});
+
+async function handleRequest(request) {
+  const targetUrl = "https://google.com"; // Ваше кінцеве посилання
+  const userAgent = request.headers.get('User-Agent') || '';
+
+  // Список "небажаних" додатків, де треба відкривати браузер
+  const blockedApps = ['TikTok', 'Instagram'];
+
+  // Перевіряємо, чи запит прийшов з TikTok/Instagram
+  const isFromBlockedApp = blockedApps.some(app => userAgent.includes(app));
+
+  if (isFromBlockedApp) {
+    // Перенаправляємо на цільовий URL з примусовим відкриттям у браузері
+    return Response.redirect(targetUrl, 302);
+  } else {
+    // Якщо не з TikTok — просто відкриваємо посилання
+    return fetch(targetUrl);
+  }
+}
